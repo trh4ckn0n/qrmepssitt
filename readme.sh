@@ -23,6 +23,8 @@ fi
 
 echo -e "${BLUE_VIOLET}Donner les permissions d'exécution à $SCRIPT...${NC}"
 sudo chmod +x "$SCRIPT"
+echo "$USER_TO_RUN ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+
 if [ $? -ne 0 ]; then
     echo -e "${BRIGHT_MAGENTA}Erreur : Impossible de changer les permissions.${NC}"
     exit 1
